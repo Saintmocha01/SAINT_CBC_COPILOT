@@ -1,0 +1,151 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saint CBC Copilot</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/intasend-inlinejs-sdk@3.0.0/build/intasend-inline.js"></script>
+</head>
+<body>
+  <h1>SAINT CBC COPILOT</h1>
+
+  <!-- Lesson Plan Form -->
+  <form id="lessonForm">
+    <h2>Generate Lesson Plan</h2>
+    <label for="subject">Subject:</label>
+    <select id="subject" name="subject" required>
+      <option value="">-- Select a subject --</option>
+      <option value="Mathematics">Mathematics</option>
+      <option value="English">English</option>
+      <option value="Kiswahili">Kiswahili</option>
+      <option value="Environmental Activities">Environmental Activities</option>
+      <option value="Science and Technology">Science and Technology</option>
+      <option value="Social Studies">Social Studies</option>
+      <option value="Religious Education">Religious Education</option>
+      <option value="Creative Arts">Creative Arts</option>
+      <option value="Music">Music</option>
+      <option value="Physical Education">Physical Education</option>
+      <option value="Home Science">Home Science</option>
+    </select>
+
+    <label for="grade">Grade:</label>
+    <select id="grade" name="grade" required>
+      <option value="">-- Select a grade --</option>
+      <option value="Grade 1">Grade 1</option>
+      <option value="Grade 2">Grade 2</option>
+      <option value="Grade 3">Grade 3</option>
+      <option value="Grade 4">Grade 4</option>
+      <option value="Grade 5">Grade 5</option>
+      <option value="Grade 6">Grade 6</option>
+    </select>
+
+    <label for="competency">Competency:</label>
+    <select id="competency" name="competency" required>
+      <option value="">-- Select a competency --</option>
+    </select>
+
+    <label for="duration">Duration:</label>
+    <select id="duration" name="duration">
+       <option value="30 minutes">30 minutes</option>
+       <option value="35 minutes">35 minutes</option>
+       <option value="40 minutes" selected>40 minutes</option>
+       <option value="45 minutes">45 minutes</option>
+       <option value="60 minutes">60 minutes</option>
+    </select>
+
+    <button type="submit">Generate Lesson Plan</button>
+  </form>
+
+  <!-- Parent Note Form -->
+  <form id="parentForm">
+    <h2>Generate Parent Note</h2>
+    <label for="student_name">Student Name:</label>
+    <input type="text" id="student_name" required>
+
+    <label for="progress">Progress:</label>
+    <input type="text" id="progress" required>
+
+    <label for="lang">Language:</label>
+    <select id="lang">
+      <option value="en" selected>English</option>
+      <option value="sw">Swahili</option>
+    </select>
+
+    <button type="submit">Generate Parent Note</button>
+  </form>
+
+  <!-- Export Buttons -->
+  <div id="exports">
+    <h2>Download Reports</h2>
+    <button onclick="exportFile('pdf')">Download PDF</button>
+    <button onclick="exportFile('docx')">Download DOCX</button>
+    <button onclick="exportFile('csv')">Download CSV</button>
+    <button onclick="exportFile('excel')">Download Excel</button>
+  </div>
+
+  <!-- School Fees Payment Form -->
+  <form id="paymentForm" class="payment-form">
+    <h2>School Fees Payment</h2>
+    <label for="pay_student_name">Student Name:</label>
+    <input type="text" id="pay_student_name" required>
+
+    <label for="pay_email">Parent Email:</label>
+    <input type="email" id="pay_email" required>
+
+    <label for="pay_amount">Amount (KES):</label>
+    <input type="number" id="pay_amount" required>
+
+    <button type="submit">Pay School Fees</button>
+  </form>
+
+  <!-- Output -->
+  <h2>Output:</h2>
+  <div id="output" style="white-space: pre-line;"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+ <script>
+  const paymentForm = document.getElementById("paymentForm");
+  paymentForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const student_name = document.getElementById("pay_student_name").value;
+    const email = document.getElementById("pay_email").value;
+    const amount = document.getElementById("pay_amount").value;
+    const output = document.getElementById("output");
+
+    output.innerHTML = `<div class="loading-message"><div class="spinner"></div> Redirecting to IntaSend...</div>`;
+
+    const intasend = new window.IntaSend({
+      publicAPIKey: "ISPubKey_test_1bc2cb8a-8094-4ebe-85b8-f85f3f243c6c", // 🔑 replace with your IntaSend public test key
+      live: false, // set to true when you go live
+    });
+
+    intasend.on("COMPLETE", (response) => {
+      output.style.color = "green";
+      output.textContent = "✅ Payment successful! Ref: " + response.invoice;
+      console.log("Payment successful", response);
+    });
+
+    intasend.on("FAILED", (response) => {
+      output.style.color = "orange";
+      output.textContent = "❌ Payment failed.";
+      console.log("Payment failed", response);
+    });
+
+    intasend.on("CLOSED", () => {
+      output.style.color = "orange";
+      output.textContent = "⚠️ Payment window closed.";
+    });
+
+    intasend.run({
+      amount: amount,
+      currency: "KES",
+      email: email,
+      first_name: student_name,
+      host: "https://payment.intasend.com",
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+ /* Reset */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #fff; /* clean white base */
+  color: #333;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(0,0,0,0.03),
+    rgba(0,0,0,0.03) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+}
+
+/* Page title */
+h1 {
+  text-align: center;
+  color: #d32f2f; /* red */
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px #000; /* subtle black accent */
+}
+
+/* Section titles */
+h2 {
+  text-align: center;
+  color: #388e3c; /* green */
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+/* Form styling */
+form,
+#paymentForm {
+  max-width: 450px;
+  margin: 0 auto 30px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+  border-top: 6px solid #d32f2f; /* red top border */
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(0,0,0,0.02),
+    rgba(0,0,0,0.02) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+}
+
+/* Labels and inputs */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #000;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+}
+
+/* Button styling */
+button,
+#paymentForm button {
+  width: 100%;
+  padding: 12px;
+  background: #000; /* black */
+  color: #fff; /* white text */
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover,
+#paymentForm button:hover {
+  background: #388e3c; /* green on hover */
+  transform: scale(1.03);
+}
+
+/* Export buttons (side by side) */
+.export-btn {
+  width: auto;
+  display: inline-block;
+  margin: 5px;
+  padding: 8px 12px;
+  background: #d32f2f; /* red */
+  color: #fff;
+  font-size: 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.export-btn:hover {
+  background: #388e3c; /* green */
+  transform: scale(1.05);
+}
+
+/* Output boxes */
+.output {
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 12px;
+  white-space: pre-line;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(211,47,47,0.03),
+    rgba(211,47,47,0.03) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+}
+
+.lesson-plan {
+  margin-top: 15px;
+  padding: 18px;
+  background-color: #f9f9f9;
+  border: 1px solid #000;
+  border-radius: 10px;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.lesson-plan strong {
+  display: block;
+  margin-top: 12px;
+  color: #d32f2f; /* red */
+}
+
+/* Spinner animation */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #000; /* black */
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-message {
+  color: #d32f2f; /* red */
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  form, .output, #paymentForm {
+    width: 90%;
+    padding: 15px;
+  }
+
+  button, .export-btn, #paymentForm button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .lesson-plan {
+    font-size: 14px;
+  }
+}
